@@ -37,6 +37,14 @@ module.exports = {
             }
         }
     })
+  },
+  async buscarPerguntasRealizadas(req,res){
+    const { usuario_id } = req.params;
 
+    return await Mensagens.findAll({
+        where:{
+            usuario_id:usuario_id
+        }
+    })
   }
 };
