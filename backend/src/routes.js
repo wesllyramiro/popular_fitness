@@ -10,9 +10,10 @@ routes.post('/usuario', UsuarioController.create);
 
 routes.post('/profissional', ProfissionalController.create);
 
-routes.post('/Mensagem',MensagensController.create)
-routes.get('/Mensagem',MensagensController.buscarPerguntaPorCategoria)
-routes.get('/Mensagem/:usuario_id/',MensagensController.buscarPerguntasRealizadas)
-routes.get('/Mensagem/:usuario_id/usuario',MensagensController.buscarResposta)
+routes.post('/mensagem',MensagensController.CriarPergunta)
+routes.post('/mensagem/:usuario_id/resposta',MensagensController.CriarResposta)
+routes.get('/mensagem',MensagensController.BuscarPerguntaPorCategoria)
+routes.get('/mensagem/:usuario_id/',MensagensController.BuscarPerguntasRealizadas)
+routes.get('/mensagem/:usuario_id/resposta',MensagensController.BuscarResposta)
 
 module.exports = routes;
