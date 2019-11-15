@@ -1,19 +1,32 @@
 const express = require('express');
 
-const UsuarioController = require('./controllers/UsuarioController');
 const ProfissionalController = require('./controllers/ProfissionalController');
 const MensagensController = require('./controllers/MensagensController');
+const UsuarioController = require('./controllers/UsuarioController');
 
 const routes = express.Router();
 
-routes.post('/usuario', UsuarioController.create);
+routes.route('/usuario')
+    .post(UsuarioController.CriarUsario)
+routes.route('/usuario/:usuario_id')
+    .get(UsuarioController.BuscarUsuario)
 
-routes.post('/profissional', ProfissionalController.create);
 
-routes.post('/mensagem',MensagensController.CriarPergunta)
-routes.post('/mensagem/:usuario_id/resposta',MensagensController.CriarResposta)
-routes.get('/mensagem',MensagensController.BuscarPerguntaPorCategoria)
-routes.get('/mensagem/:usuario_id/',MensagensController.BuscarPerguntasRealizadas)
-routes.get('/mensagem/:usuario_id/resposta',MensagensController.BuscarResposta)
+routes.route('/profissional')
+    .post(ProfissionalController.CriarProfissional)
+routes.route('/profissional/:profissional_id')
+    .get(ProfissionalController.BuscarProfissional)
+
+
+routes.route('/pergunta')
+    .post(MensagensController.CriarPergunta)
+    .get(MensagensController.BuscarPerguntaPorCategoria)
+routes.route('/pergunta/:usuario_id')
+    .get(MensagensController.BuscarPerguntasRealizadas)
+    
+
+routes.route('/resposta/:usuario_id')
+    .post(MensagensController.CriarResposta)
+    .get(MensagensController.BuscarResposta)
 
 module.exports = routes;

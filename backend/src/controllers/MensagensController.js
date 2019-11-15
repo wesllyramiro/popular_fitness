@@ -1,9 +1,15 @@
-const Mensagens = require('../models/Mensagens');
+const Mensagens = require('../model/Mensagens');
+const Usuario = require('../model/Usuario');
+const { Op } = require('sequelize');
 
 module.exports = {
   async CriarPergunta(req, res) {
-    const { usuario_id,mensagem,categoria } = req.body;
-	
+    const { usuario_id, mensagem, categoria } = req.body;
+  
+    var usuario = await Usuario.findByPk(usuario_id)
+    if(!usuario)
+        return res.status(400).json({ error : "Usuario não encontrado" })
+
     let mensagen = await Mensagens.create({ 
       usuario_id:usuario_id,
       mensagem:mensagem,
@@ -16,17 +22,18 @@ module.exports = {
     return res.json(mensagen);
   },
   async CriarResposta(req,res){
-    const { mensagem_id,resposta } = req.body;
+    const { mensagem_id, resposta, profissional_id } = req.body;
     const { usuario_id } = req.params;
 
-    var mensagem = await Mensagens.findById(mensagem_id)
+    var mensagem = await Mensagens.findByPk(mensagem_id)
 
-    if(mensagem.respondido === 1)
-        return  res.status(400).json({ error: 'Pergunta já respondida!' });
+    if(mensagem.respondido === true)
+        return res.status(400).json({ error: 'Pergunta já respondida!' });
 
-    await Mensagens.update({ respondido:1, resposta:resposta },{
+    await Mensagens.update(
+      { respondido:1, resposta:resposta,profissional_id:profissional_id },{
       where:{
-        usuario_id:usuario_id
+        id:mensagem_id
       }
     })
     
@@ -56,7 +63,7 @@ module.exports = {
         where:{
             usuario_id:usuario_id,
             resposta:{
-                $ne: null
+              [Op.ne]: null
             }
         }
     })

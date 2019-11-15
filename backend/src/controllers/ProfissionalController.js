@@ -1,14 +1,8 @@
-const Profissional = require('../models/Profissional');
+const Profissional = require('../model/Profissional');
 
 module.exports = {
-  async create(req, res) {
-    const { nome } = req.body;
-	const { cpf } = req.body;
-	const { login } = req.body;
-	const { password } = req.body;
-	const { crn } = req.body;
-	const { cref } = req.body;
-	
+  async CriarProfissional(req, res) {
+	const { nome, cpf, login, password, crn, cref } = req.body
 	
     let profissional = await Profissional.create({ 
 		nome:nome,
@@ -20,5 +14,15 @@ module.exports = {
 	});
 
     return res.json(profissional);
+  },
+  async BuscarProfissional(req, res){
+	  const { profissional_id } = req.params
+
+	  let profissional = await Profissional.findByPk(profissional_id)
+
+	  if(!profissional)
+		  return res.status(204).json()
+	  
+	  return res.json(profissional)
   }
 };

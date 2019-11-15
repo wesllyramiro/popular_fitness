@@ -11,7 +11,7 @@ class Mensagens extends Model {
             categoria:DataTypes.STRING(200)
         },{
             sequelize:connection,
-            tableName:'profissional'
+            tableName:'mensagens'
         })
     }
 

@@ -1,11 +1,12 @@
-const Usuario = require('../models/Usuario');
+const Usuario = require('../model/Usuario');
 
 module.exports = {
-  async store(req, res) {
-    const { nome } = req.body;
-	const { cpf } = req.body;
-	const { login } = req.body;
-	const { password } = req.body;
+  async CriarUsario(req, res) {
+    const { nome, cpf, login, password } = req.body
+
+	var usuarioExistente = await Usuario.findOne({ where: { login : login }})
+	if(usuarioExistente)
+		return res.status(400).json({ error: "Login já utilizado" })
 
     let usuario = await Usuario.create({
 		nome:nome,
@@ -15,5 +16,15 @@ module.exports = {
 	});
 	
     return res.json(usuario);
+  },
+  async BuscarUsuario(req, res){
+	const { usuario_id } = req.params
+
+	var usuarioExistente = await Usuario.findByPk(usuario_id)
+
+	if(!usuarioExistente)
+		return res.status(204).json()
+
+	return res.json(usuarioExistente)
   }
 };

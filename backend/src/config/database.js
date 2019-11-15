@@ -1,9 +1,9 @@
 module.exports = {
-    dialect:'postgres'
-   ,database:'teste_lanlink'
+    dialect:'mysql'
+   ,database:'popular_fitness'
    ,host:'localhost'
-   ,username:'postgres'
-   ,password:'Postgres2018!'
+   ,username:'root'
+   ,password:'admin'
    ,define:{
        timestamps:true,
        underscored:true

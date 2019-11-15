@@ -35,7 +35,7 @@ module.exports = {
       },
       resposta:{
         type:Sequelize.STRING(1000),
-        allowNull:false
+        allowNull:true
       },
       respondido:{
         type:Sequelize.BOOLEAN,
