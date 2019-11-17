@@ -1,7 +1,18 @@
-const Sequeliza = require('sequelize')
+const Sequelize = require('sequelize')
 const dbConfig = require('../config/database')
 
-const connection = new Sequeliza(dbConfig)
+var connection = null
+
+if (process.env.DATABASE_URL)
+    connection = new Sequelize(process.env.DATABASE_URL,{
+        dialect: 'postgres',
+        protocol: 'postgres',
+        dialectOptions: {
+            ssl: true
+        }
+    })
+else 
+    connection = new Sequelize(dbConfig)
 
 const Usuario = require('../model/Usuario')
 const Profissional = require('../model/Profissional')
