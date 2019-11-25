@@ -4,7 +4,7 @@ class Profissional extends Model {
     static init(connection){
         super.init({
             nome:DataTypes.STRING(200),
-			cpf:DataTypes.STRING(15),
+			email:DataTypes.STRING(200),
 			login:DataTypes.STRING(200),
 			password:DataTypes.STRING(50),
 			crn:DataTypes.STRING(50),

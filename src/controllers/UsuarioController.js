@@ -2,7 +2,7 @@ const Usuario = require('../model/Usuario');
 
 module.exports = {
   async CriarUsario(req, res) {
-    const { nome, cpf, login, password } = req.body
+    const { nome, email, login, password } = req.body
 
 	var usuarioExistente = await Usuario.findOne({ where: { login : login }})
 	if(usuarioExistente)
@@ -10,7 +10,7 @@ module.exports = {
 
     let usuario = await Usuario.create({
 		nome:nome,
-		cpf:cpf,
+		email:email,
 		login:login,
 		password:password
 	});

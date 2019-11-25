@@ -15,8 +15,8 @@ module.exports = {
         type:Sequelize.STRING(200),
         allowNull:false
       },
-	    cpf:{
-        type:Sequelize.STRING(15),
+	    email:{
+        type:Sequelize.STRING(200),
         allowNull:false
       },
 	    login:{

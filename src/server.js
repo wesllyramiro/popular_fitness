@@ -20,6 +20,12 @@ io.on('connection',socket => {
   connectedUsers[usuario_id] = socket.id
 })
 
+io.on("disconnect",socket => {
+  const { usuario_id } = socket.handshake.query
+
+  connectedUsers[usuario_id] = ""
+})
+
 app.use((req,res,next) =>{
   req.io = io
   req.connectedUsers = connectedUsers
@@ -31,4 +37,8 @@ app.use(cors());
 app.use(express.json());
 app.use(routes);
 
-server.listen(process.env.PORT || 3333);
+const PORT = process.env.PORT || 3333
+
+server.listen(PORT,()=>{
+  console.log(`aplicação executando na porta ${PORT}`)
+});

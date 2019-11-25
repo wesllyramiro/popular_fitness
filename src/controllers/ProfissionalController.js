@@ -2,11 +2,11 @@ const Profissional = require('../model/Profissional');
 
 module.exports = {
   async CriarProfissional(req, res) {
-	const { nome, cpf, login, password, crn, cref } = req.body
+	const { nome, email, login, password, crn, cref } = req.body
 	
     let profissional = await Profissional.create({ 
 		nome:nome,
-		cpf:cpf,
+		email:email,
 		login:login,
 		password:password,
 		crn:crn,

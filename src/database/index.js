@@ -1,8 +1,7 @@
 const Sequelize = require('sequelize')
 const dbConfig = require('../config/database')
 
-var connection = null
-
+let connection = null
 if (process.env.DATABASE_URL)
     connection = new Sequelize(process.env.DATABASE_URL,{
         dialect: 'postgres',
