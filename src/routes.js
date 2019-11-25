@@ -3,8 +3,12 @@ const express = require('express');
 const ProfissionalController = require('./controllers/ProfissionalController');
 const MensagensController = require('./controllers/MensagensController');
 const UsuarioController = require('./controllers/UsuarioController');
+const LoginController = require('./controllers/LoginController');
 
 const routes = express.Router();
+
+routes.route('/login')
+    .post(LoginController.SingIn)
 
 routes.route('/usuario')
     .post(UsuarioController.CriarUsario)
